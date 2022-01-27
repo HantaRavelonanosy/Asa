@@ -1,0 +1,22 @@
+schema: http://localhost:4000/api/graphql
+documents: "./src/app/graphql/queries/*.graphql"
+generates:
+  ./src/app/graphql/services.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-apollo-angular
+config:
+  onlyOperationTypes: true
+  scalars:
+    DateTime: string
+    JSONObject: Record<string, unknown>
+    NonEmptyString: string
+    NonNegativeInt: number
+    PositiveInt: number
+    Upload: File
+    Void: void
+  defaultScalarType: unknown
+hooks:
+  afterOneFileWrite:
+    - prettier --write

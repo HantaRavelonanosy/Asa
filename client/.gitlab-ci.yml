@@ -1,0 +1,38 @@
+variables:
+  npm_config_fund: "false"
+  npm_config_audit: "false"
+  FF_USE_FASTZIP: "true"
+
+default:
+  image: node:16
+
+stages:
+  - build
+  - test
+
+Server Build:
+  stage: build
+  script:
+    - cd server
+    - npm ci
+    - npm run update-resolver-types && git diff --quiet
+    - npm run check-format
+    - npm run lint
+    - npm run build
+
+Client Build:
+  stage: build
+  script:
+    - cd client
+    - npm ci
+    - npm run check-format
+    - npm run lint
+    - npm run build
+
+Client Test:
+  image: registry:443/drs/drs-ui/ci
+  stage: test
+  script:
+    - cd client
+    - npm ci
+    - npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI

@@ -1,0 +1,24 @@
+schema: "./src/graphql/schemas/*.ts"
+generates:
+  ./src/graphql/resolver-types.ts:
+    plugins:
+      - typescript
+      - typescript-resolvers
+    config:
+      useIndexSignature: true # required by apollo acording to doc
+      enumsAsTypes: true
+      mappers: # map graphql types to mongoose documents
+        User: ../mongo#UserDocument
+        Team: ../mongo#TeamDocument
+config:
+  scalars:
+    DateTime: Date
+    JSONObject: Record<string, unknown>
+    NonEmptyString: string
+    NonNegativeInt: number
+    PositiveInt: number
+    Void: void
+  defaultScalarType: unknown
+hooks:
+  afterOneFileWrite:
+    - prettier --write
