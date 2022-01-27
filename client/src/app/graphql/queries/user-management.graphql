@@ -1,0 +1,100 @@
+# teams
+
+query teamList {
+  teams {
+    id
+    name
+    description
+  }
+}
+
+query teamDetail($id: ID!) {
+  team(id: $id) {
+    id
+    name
+    description
+  }
+}
+
+mutation createTeam($name: NonEmptyString!, $description: String) {
+  team: createTeam(name: $name, description: $description) {
+    id
+    name
+    description
+  }
+}
+
+mutation editTeam($id: ID!, $name: NonEmptyString, $description: String) {
+  team: editTeam(id: $id, name: $name, description: $description) {
+    id
+    name
+    description
+  }
+}
+
+mutation deleteTeam($id: ID!) {
+  deleteTeam(id: $id)
+}
+
+# users
+
+fragment userFields on User {
+  id
+  username
+  role
+  isDisabled
+  team {
+    id
+    name
+  }
+}
+
+query userList {
+  users {
+    ...userFields
+  }
+}
+
+query userDetail($id: ID!) {
+  user(id: $id) {
+    ...userFields
+  }
+}
+
+mutation createUser(
+  $username: NonEmptyString!
+  $password: String
+  $role: UserRole!
+  $teamId: ID
+  $isDisabled: Boolean
+) {
+  user: createUser(
+    username: $username
+    password: $password
+    role: $role
+    teamId: $teamId
+    isDisabled: $isDisabled
+  ) {
+    ...userFields
+  }
+}
+
+mutation editUser(
+  $id: ID!
+  $username: NonEmptyString
+  $password: String
+  $role: UserRole
+  $teamId: ID
+  $isDisabled: Boolean
+) {
+  user: editUser(
+    id: $id
+    username: $username
+    password: $password
+    role: $role
+    teamId: $teamId
+    isDisabled: $isDisabled
+  ) {
+    ...userFields
+  }
+}

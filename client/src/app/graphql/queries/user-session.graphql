@@ -1,0 +1,38 @@
+fragment userInfoFields on UserInfo {
+  loggedIn
+  user {
+    id
+    username
+    role
+  }
+  modules
+}
+
+query UserInfo {
+  userInfo {
+    ...userInfoFields
+  }
+}
+
+mutation login($username: NonEmptyString!, $password: NonEmptyString!) {
+  userInfo: login(username: $username, password: $password) {
+    ...userInfoFields
+  }
+}
+
+mutation logout {
+  userInfo: logout {
+    ...userInfoFields
+  }
+}
+
+mutation logNavigation($path: String!) {
+  logNavigation(path: $path)
+}
+
+mutation changePassword(
+  $oldPassword: NonEmptyString!
+  $password: NonEmptyString!
+) {
+  changePassword(oldPassword: $oldPassword, password: $password)
+}
