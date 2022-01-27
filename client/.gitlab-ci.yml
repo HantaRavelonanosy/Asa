@@ -30,7 +30,6 @@ Client Build:
     - npm run build
 
 Client Test:
-  image: registry:443/drs/drs-ui/ci
   stage: test
   script:
     - cd client
