@@ -1,0 +1,54 @@
+<h1 class="light test">{{ "loginForm.title" | translate }}</h1>
+
+<form nz-form nzLayout="vertical" (submit)="login()">
+  <nz-form-item>
+    <nz-form-label nzFor="username">{{
+      "loginForm.username" | translate
+    }}</nz-form-label>
+    <nz-form-control>
+      <input
+        nz-input
+        name="useername"
+        id="username"
+        nzSize="large"
+        [(ngModel)]="username"
+        (ngModelChange)="error = false"
+      />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzFor="password">{{
+      "loginForm.password" | translate
+    }}</nz-form-label>
+    <nz-form-control>
+      <input
+        nz-input
+        name="password"
+        id="password"
+        type="password"
+        nzSize="large"
+        [(ngModel)]="password"
+        (ngModelChange)="error = false"
+      />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item class="error">
+    {{ error ? ("loginForm.wrongCredentials" | translate) : "&nbsp;" }}
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control>
+      <button
+        nz-button
+        nzType="primary"
+        type="submit"
+        nzSize="large"
+        [disabled]="!username || !password"
+      >
+        {{ "loginForm.login" | translate }}
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

@@ -1,0 +1,26 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header {
+  height: 100px;
+  padding: 16px 40px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.content {
+  padding: 50px;
+  flex: 1;
+}
+
+.footer {
+  height: 60px;
+  padding: 10px 40px;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #e5e5e5;
+}
